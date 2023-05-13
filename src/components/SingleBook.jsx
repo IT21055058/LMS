@@ -11,9 +11,12 @@ export default function SingleBook() {
   const [update, setUpdate] = useState(false)
   const [borrow, setBorrow] = useState(false)
   const [bname, setName] = useState('')
+  const [uId, setUId] = useState('')
 
   let optionItems = state.users.map((item) => (
-    <option key={item.uId}>{item.uName}</option>
+    <option key={item.uId} value={item.uId}>
+      {item.uName}
+    </option>
   ))
 
   const handleUpdate = (event) => {
@@ -25,6 +28,11 @@ export default function SingleBook() {
   function handleReturnBook() {
     const updateBook = { bId: book.bId, bName: book.bname, borrowedBy: '' }
     dispatch({ type: 'EDIT_BOOK', payload: updateBook })
+  }
+
+  function changeDropDown(event) {
+    setUId(event.target.value)
+    alert(uId)
   }
 
   return (
@@ -128,7 +136,7 @@ export default function SingleBook() {
               <label>
                 {' '}
                 Borrowed By:
-                <select>{optionItems}</select>
+                <select onChange={changeDropDown}>{optionItems}</select>
               </label>
 
               {/* <input type="submit" value="Submit"></input> */}
